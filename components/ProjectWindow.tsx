@@ -90,6 +90,8 @@ function WinImage({
           background: 'rgba(10,8,28,0.60)',
           cursor: status === 'loaded' ? 'zoom-in' : 'default',
           flex: 1,
+          position: 'relative',
+          overflow: 'hidden',
         }}
         onClick={() => status === 'loaded' && onExpand(ap(image.src), image.filename)}
       >
@@ -123,12 +125,19 @@ function WinImage({
           </div>
         )}
 
+        {status === 'loaded' && (
+          <img
+            src={ap(image.src)}
+            aria-hidden
+            style={{ position: 'absolute', inset: '-10px', width: 'calc(100% + 20px)', height: 'calc(100% + 20px)', objectFit: 'cover', filter: 'blur(8px) brightness(0.5)', transform: 'scale(1.05)' }}
+          />
+        )}
         <img
           src={ap(image.src)}
           alt={image.label}
           onLoad={() => setStatus('loaded')}
           onError={() => setStatus('error')}
-          style={{ display: status === 'loaded' ? 'block' : 'none', width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ display: status === 'loaded' ? 'block' : 'none', position: 'relative', width: '100%', height: '100%', objectFit: 'contain' }}
         />
 
         {status === 'loaded' && (
@@ -322,7 +331,27 @@ export default function ProjectWindow({
           </div>
 
           {/* ── Scrollable content ── */}
-          {!minimized && (
+          {!minimized && project.comingSoon && (
+            <div
+              style={{
+                flex: 1, display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center', gap: 16,
+                padding: '40px 22px',
+              }}
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <div style={{ fontFamily: FONT, fontSize: 9, letterSpacing: '0.22em', color: '#c4b5fd', opacity: 0.28, textTransform: 'uppercase' }}>
+                status
+              </div>
+              <div style={{ fontFamily: FONT, fontSize: 28, fontWeight: 700, color: '#c4b5fd', letterSpacing: '0.10em', opacity: 0.85 }}>
+                COMING SOON
+              </div>
+              <div style={{ fontFamily: FONT, fontSize: 11, color: '#c8c8d8', opacity: 0.35, textAlign: 'center', maxWidth: 320, lineHeight: 1.7 }}>
+                This project is still in progress.<br />Check back soon.
+              </div>
+            </div>
+          )}
+          {!minimized && !project.comingSoon && (
           <div
             style={{ flex: 1, overflowY: 'auto', padding: '20px 22px 28px',
                      scrollbarWidth: 'thin', scrollbarColor: 'rgba(80,80,160,0.35) transparent' }}

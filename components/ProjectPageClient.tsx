@@ -233,7 +233,7 @@ export default function ProjectPageClient({ project, allProjects }: Props) {
       >
         {/* Breadcrumb path */}
         <p style={{ fontSize: '11px', color: TEXT, opacity: 0.45 }}>
-          <span style={{ color: ACCENT, opacity: 0.8 }}>tom@portfolio</span>
+          <span style={{ color: ACCENT, opacity: 0.8 }}>hatem@portfolio</span>
           <span style={{ opacity: 0.4 }}>:</span>
           <span style={{ color: ACCENT_SOFT, opacity: 0.6 }}>
             ~/projects/{project.slug}

@@ -85,7 +85,7 @@ Graduate Research Assistant
 XR Perception Lab · 2023 , Present
   · Designing and running VR experiments on
     facial recognition and social presence.
-  · Developing cushatem data collection
+  · Developing custom data collection
     pipelines in Python.
   · Co-authoring two in-progress papers on
     avatar fidelity and embodiment.
@@ -114,10 +114,9 @@ Feel free to reach out , I'm open to
 research collaborations, design projects,
 and interesting conversations.
 
-  email    hatem@example.com
-  github   github.com/hatem
-  linkedin linkedin.com/in/hatem
-  twitter  @hatemdesigns
+  email    hatemdahech1@gmail.com
+  github   github.com/htom666
+  linkedin linkedin.com/in/hatemdahech
 `
 
 const LINKS_TXT = `links.txt
@@ -125,20 +124,11 @@ const LINKS_TXT = `links.txt
 
 Quick links:
 
-  [1] github.com/hatem
+  [1] github.com/htom666
       → source code, experiments, open-source
 
-  [2] linkedin.com/in/hatem
+  [2] linkedin.com/in/hatemdahech
       → professional background
-
-  [3] github.com/hatem/diet-temple
-      → Diet Temple case study
-
-  [4] github.com/hatem/clarity-ds
-      → Clarity Design System
-
-  [5] github.com/hatem/spatial-audio-viz
-      → Spatial Audio Visualizer
 `
 
 // ─── Folder definitions ───────────────────────────────────────────────────────
@@ -159,7 +149,9 @@ export const OS_FOLDERS: OsFolder[] = [
       { id: 'proj_1', name: 'odidact.proj',                kind: 'project', projectId: 1 },
       { id: 'proj_2', name: 'midori.proj',                 kind: 'project', projectId: 2 },
       { id: 'proj_3', name: 'ryujin.proj',                kind: 'project', projectId: 3 },
-      { id: 'proj_4', name: 'spatial_audio_viz.proj',     kind: 'project', projectId: 4 },
+      { id: 'proj_4', name: 'pas_a_pas.proj',             kind: 'project', projectId: 4 },
+      { id: 'proj_5', name: 'fitness.proj',                kind: 'project', projectId: 5 },
+      { id: 'proj_6', name: 'spatial_audio_viz.proj',     kind: 'project', projectId: 6 },
     ],
   },
   {

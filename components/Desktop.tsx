@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback, useId } from 'react'
+import { useState, useRef, useCallback, useId, useEffect } from 'react'
 import Background from './Background'
 import DesktopLayer from './DesktopLayer'
 import SystemStatus from './SystemStatus'
@@ -12,6 +12,7 @@ import ProjectWindow from './ProjectWindow'
 import { OS_FOLDERS, getFolderById, getFileById } from '@/lib/osData'
 import { PROJECTS } from '@/data/portfolio'
 import PixelMusicPlayer from './PixelMusicPlayer'
+import BootSequence from './BootSequence'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -45,11 +46,23 @@ function centred(ww: number, wh: number, offset = 0) {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Desktop() {
+  const [loading, setLoading]       = useState(true)
   const [theme, setTheme] = useState<Theme>('green')
   const [wins, setWins] = useState<OsWin[]>([])
+  const [termOpen, setTermOpen]     = useState(true)
   const [termZ, setTermZ]           = useState(10)
   const [musicOpen, setMusicOpen]   = useState(true)
   const [musicZ, setMusicZ]         = useState(15)
+  const [musicPos, setMusicPos]     = useState<{ x: number; y: number } | null>(null)
+  const [isMobile, setIsMobile]     = useState(false)
+
+  useEffect(() => {
+    setMusicPos({ x: window.innerWidth - 14 - 280, y: 14 + 173 + 10 })
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   const maxZRef = useRef(20)
   const uid = useId()
@@ -133,6 +146,60 @@ export default function Desktop() {
 
   // ── Render ─────────────────────────────────────────────────────────────────
 
+  if (loading) {
+    return (
+      <>
+        <Background />
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 100,
+          background: 'rgba(0,0,0,0.55)',
+          backdropFilter: 'blur(6px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: 40,
+        }}>
+          <BootSequence onComplete={() => setLoading(false)} theme={theme} />
+        </div>
+      </>
+    )
+  }
+
+  // ── Mobile layout ──────────────────────────────────────────────────────────
+
+  if (isMobile) {
+    return (
+      <>
+        <Background />
+        <Terminal
+          theme={theme}
+          onThemeChange={setTheme}
+          zIndex={10}
+          onFocus={() => {}}
+          onClose={() => {}}
+          visible
+          skipBoot
+          mobileFullscreen
+          onOpenProject={openProject}
+        />
+        {wins.filter((w) => w.kind === 'project').map((win) => {
+          const project = PROJECTS.find((p) => p.id === win.projectId)
+          if (!project) return null
+          return (
+            <ProjectWindow
+              key={win.id}
+              project={project}
+              initialPosition={{ x: 0, y: 0 }}
+              zIndex={win.zIndex}
+              onClose={() => closeWin(win.id)}
+              onFocus={() => focusWin(win.id)}
+            />
+          )
+        })}
+      </>
+    )
+  }
+
+  // ── Desktop layout ─────────────────────────────────────────────────────────
+
   return (
     <>
       <Background />
@@ -141,25 +208,29 @@ export default function Desktop() {
       <DesktopLayer
         onOpenFolder={handleDesktopFolderOpen}
         onOpenMusicPlayer={openMusicPlayer}
+        onOpenTerminal={() => { setTermOpen(true); setTermZ(nextZ()); }}
         openFolderIds={wins.filter((w) => w.kind === 'folder').map((w) => w.folderId!)}
       />
 
       {/* System status */}
       <SystemStatus theme={theme} />
 
-      {/* Main terminal — draggable */}
+      {/* Main terminal — always mounted, hidden when closed */}
       <Terminal
         theme={theme}
         onThemeChange={setTheme}
         zIndex={termZ}
         onFocus={focusTerminal}
+        onClose={() => setTermOpen(false)}
+        visible={termOpen}
+        skipBoot
         onOpenProject={handleOpenProjectFromTerminal}
       />
 
       {/* Music player */}
-      {musicOpen && (
+      {musicOpen && musicPos && (
         <PixelMusicPlayer
-          initialPosition={{ x: 24, y: 80 }}
+          initialPosition={musicPos}
           zIndex={musicZ}
           onClose={() => setMusicOpen(false)}
           onFocus={focusMusicPlayer}

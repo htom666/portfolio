@@ -36,7 +36,7 @@ const FRAME_COLOR  = '#5a3e98'   // outer frame stroke (purple)
 const FRAME_W      = 3
 const HEADER_BG    = '#b09ecc'   // pastel purple (matches Terminal)
 const HEADER_TEXT  = '#1a1040'   // title text (very dark)
-const INNER_BG     = '#2d2060'   // dark purple inner panel
+const INNER_BG     = 'rgba(45,32,96,0.55)'   // dark purple inner panel
 const INNER_BORDER = '#6040a0'   // inner panel border
 const LABEL_C      = '#88c8d8'   // cyan label text
 const VALUE_C      = '#f0f0f8'   // off-white value text
@@ -340,7 +340,7 @@ export default memo(function SystemStatus({ theme: _theme }: Props) {
         inset:      0,
         clipPath:   OCT_CLIP,
         overflow:   'hidden',
-        background: HEADER_BG,   // pastel lavender fills the entire frame area
+        background: 'rgba(14,12,32,0.55)',   // semi-transparent dark fill
         fontFamily: FONT,
       }}>
 

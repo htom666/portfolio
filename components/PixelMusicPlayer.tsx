@@ -154,9 +154,9 @@ function PixelSlider({ value, fillColor, thumbColor, onChange }: {
     onChange(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)))
   }
   return (
-    <div style={{ flex: 1, position: 'relative', height: 20, cursor: 'pointer' }} onClick={handleClick}>
+    <div style={{ flex: 1, position: 'relative', height: 12, cursor: 'pointer' }} onClick={handleClick}>
       <div style={{
-        position: 'absolute', left: 0, right: 0, top: 5, height: 10,
+        position: 'absolute', left: 0, right: 0, top: 3, height: 6,
         background: PROG_TRACK, border: `2px solid ${ART_BDR}`, boxSizing: 'border-box',
       }}>
         <div style={{
@@ -165,8 +165,8 @@ function PixelSlider({ value, fillColor, thumbColor, onChange }: {
         }}/>
       </div>
       <div style={{
-        position: 'absolute', top: 2, left: `calc(${value * 100}% - 7px)`,
-        width: 14, height: 16,
+        position: 'absolute', top: 1, left: `calc(${value * 100}% - 5px)`,
+        width: 10, height: 10,
         background: thumbColor, border: `2px solid ${ART_BDR}`,
         boxSizing: 'border-box', pointerEvents: 'none',
       }}/>
@@ -182,19 +182,20 @@ interface Props {
 }
 
 export default memo(function PixelMusicPlayer({ initialPosition, zIndex, onClose, onFocus }: Props) {
-  const [trackIdx, setTrackIdx]       = useState(0)
-  const [playing, setPlaying]         = useState(false)
-  const [muted, setMuted]             = useState(false)
-  const [volume, setVolume]           = useState(0.8)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration]       = useState(0)
-  const [minimized, setMinimized]     = useState(false)
-  const [pos, setPos]                 = useState(initialPosition)
+  const [trackIdx, setTrackIdx] = useState(0)
+  const [playing, setPlaying]   = useState(false)
+  const [muted, setMuted]       = useState(false)
+  const [volume, setVolume]     = useState(0.8)
+  const [minimized, setMinimized] = useState(false)
+  const [pos, setPos]           = useState(initialPosition)
 
   const audioRef    = useRef<HTMLAudioElement | null>(null)
   const trackIdxRef = useRef(0)
+  const durationRef = useRef(0)
   const winRef      = useRef<HTMLDivElement>(null)
   const dragRef     = useRef<{ sx: number; sy: number; ox: number; oy: number } | null>(null)
+  const progFillRef = useRef<HTMLDivElement>(null)
+  const progThumbRef = useRef<HTMLDivElement>(null)
 
   // ── Audio setup ────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -203,10 +204,17 @@ export default memo(function PixelMusicPlayer({ initialPosition, zIndex, onClose
     audio.volume = 0.8
     audioRef.current = audio
 
+    const setProgPct = (pct: number) => {
+      if (progFillRef.current)  progFillRef.current.style.width = `${pct * 100}%`
+      if (progThumbRef.current) progThumbRef.current.style.left = `calc(${pct * 100}% - 5px)`
+    }
     const onPlay   = () => setPlaying(true)
     const onPause  = () => setPlaying(false)
-    const onTime   = () => setCurrentTime(audio.currentTime)
-    const onDur    = () => setDuration(isFinite(audio.duration) ? audio.duration : 0)
+    const onTime   = () => {
+      const d = durationRef.current
+      setProgPct(d > 0 ? audio.currentTime / d : 0)
+    }
+    const onDur    = () => { durationRef.current = isFinite(audio.duration) ? audio.duration : 0 }
     const onEnded  = () => {
       const next = (trackIdxRef.current + 1) % PLAYLIST.length
       trackIdxRef.current = next
@@ -233,7 +241,9 @@ export default memo(function PixelMusicPlayer({ initialPosition, zIndex, onClose
     trackIdxRef.current = trackIdx
     const was = !audio.paused
     audio.src = PLAYLIST[trackIdx].src; audio.load()
-    setCurrentTime(0); setDuration(0)
+    durationRef.current = 0
+    if (progFillRef.current)  progFillRef.current.style.width = '0%'
+    if (progThumbRef.current) progThumbRef.current.style.left = 'calc(0% - 5px)'
     if (was) audio.play().catch(() => {})
   }, [trackIdx])
 
@@ -267,8 +277,7 @@ export default memo(function PixelMusicPlayer({ initialPosition, zIndex, onClose
   const nextTrack = useCallback(() => setTrackIdx(i => (i + 1) % PLAYLIST.length), [])
 
   // ── Render ─────────────────────────────────────────────────────────────────
-  const progress = duration > 0 ? currentTime / duration : 0
-  const track    = PLAYLIST[trackIdx]
+  const track = PLAYLIST[trackIdx]
   const H        = minimized ? HEADER_H : FULL_H
 
   return (
@@ -322,10 +331,16 @@ export default memo(function PixelMusicPlayer({ initialPosition, zIndex, onClose
           <div style={{ flex:1, background:BODY_BG, display:'flex', flexDirection:'column', overflow:'hidden' }}>
 
             {/* Artwork */}
-            <div style={{ width:'100%', height:ART_H, flexShrink:0,
+            <div style={{ width:'100%', height:ART_H, flexShrink:0, position:'relative',
               borderBottom:`2px solid ${ART_BDR}`, overflow:'hidden' }}>
+              {/* Blurred bg to fill gaps */}
+              <img key={track.thumb + '-bg'} src={track.thumb} aria-hidden
+                style={{ position:'absolute', inset:'-10px', width:'calc(100% + 20px)', height:'calc(100% + 20px)',
+                  objectFit:'cover', filter:'blur(8px) brightness(0.6)', transform:'scale(1.05)' }}/>
+              {/* Main image zoomed out */}
               <img key={track.thumb} src={track.thumb} alt={track.name}
-                style={{ width:'100%', height:'100%', objectFit:'contain', display:'block' }}/>
+                style={{ position:'absolute', inset:0, width:'100%', height:'100%',
+                  objectFit:'contain', objectPosition:'center top', display:'block' }}/>
             </div>
 
             {/* Track name + dots */}
@@ -358,16 +373,35 @@ export default memo(function PixelMusicPlayer({ initialPosition, zIndex, onClose
             </div>
 
             {/* Progress */}
-            <div style={{ padding:'8px 10px 0', display:'flex', gap:6, alignItems:'center', flexShrink:0 }}>
-              <PixelSlider value={progress} fillColor={PROG_FILL} thumbColor={PROG_THUMB}
-                onChange={(v) => {
-                  const a = audioRef.current
-                  if (a && isFinite(a.duration)) a.currentTime = v * a.duration
+            <div style={{ padding:'8px 18px 0', display:'flex', gap:6, alignItems:'center', flexShrink:0 }}>
+              <div
+                style={{ flex:1, position:'relative', height:12, cursor:'pointer' }}
+                onClick={(e) => {
+                  const a = audioRef.current; if (!a) return
+                  const r = e.currentTarget.getBoundingClientRect()
+                  const v = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width))
+                  if (isFinite(durationRef.current)) a.currentTime = v * durationRef.current
+                }}
+              >
+                <div style={{
+                  position:'absolute', left:0, right:0, top:3, height:6,
+                  background:PROG_TRACK, border:`2px solid ${ART_BDR}`, boxSizing:'border-box',
+                }}>
+                  <div ref={progFillRef} style={{
+                    position:'absolute', top:0, left:0, height:'100%', width:'0%', background:PROG_FILL,
+                  }}/>
+                </div>
+                <div ref={progThumbRef} style={{
+                  position:'absolute', top:1, left:'calc(0% - 5px)',
+                  width:10, height:10,
+                  background:PROG_THUMB, border:`2px solid ${ART_BDR}`,
+                  boxSizing:'border-box', pointerEvents:'none',
                 }}/>
+              </div>
             </div>
 
             {/* Volume */}
-            <div style={{ padding:'6px 10px 0', display:'flex', gap:6, alignItems:'center', flexShrink:0 }}>
+            <div style={{ padding:'6px 18px 0', display:'flex', gap:6, alignItems:'center', flexShrink:0 }}>
               <div role="button" onClick={() => setMuted(m => !m)} style={{
                 display:'flex', alignItems:'center', justifyContent:'center',
                 width:30, height:22, flexShrink:0,

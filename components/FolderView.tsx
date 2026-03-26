@@ -32,6 +32,7 @@ interface FileItemProps {
 function FileItem({ file, onClick }: FileItemProps) {
   return (
     <button
+      type="button"
       onClick={onClick}
       style={{
         display: 'flex',

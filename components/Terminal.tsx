@@ -15,7 +15,7 @@ const CMD = {
   bodyBg:     `repeating-linear-gradient(
     0deg, transparent 0px, transparent 1px,
     rgba(0,0,0,0.07) 1px, rgba(0,0,0,0.07) 2px
-  ), #0e0c20`,
+  ), rgba(14,12,32,0.55)`,
   frameColor: '#5a3e98',   // deeper purple frame
   frameW:     3,
   cornerCut:  8,
@@ -138,17 +138,22 @@ interface Props {
   onThemeChange: (t: 'green' | 'white') => void
   zIndex: number
   onFocus: () => void
+  onClose: () => void
+  visible: boolean
+  skipBoot?: boolean
+  mobileFullscreen?: boolean
   onOpenProject: (projectId: number) => void
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpenProject }: Props) {
-  const [phase, setPhase]               = useState<Phase>('boot')
+export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onClose, visible, skipBoot, mobileFullscreen, onOpenProject }: Props) {
+  const [phase, setPhase]               = useState<Phase>(skipBoot ? 'ready' : 'boot')
   const [history, setHistory]           = useState<HistoryEntry[]>([])
   const [inputHistory, setInputHistory] = useState<string[]>([])
   const [pos, setPos]                   = useState<{ x: number; y: number } | null>(null)
   const [minimized, setMinimized]       = useState(false)
+  const [maximized, setMaximized]       = useState(false)
 
   const outputRef = useRef<HTMLDivElement>(null)
   const winRef    = useRef<HTMLDivElement>(null)
@@ -167,12 +172,13 @@ export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpen
   }, [history])
 
   const onTitleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (mobileFullscreen) return
     if ((e.target as HTMLElement).closest('[data-nodrag]')) return
     if (!pos) return
     e.preventDefault(); onFocus()
     dragRef.current = { startX: e.clientX, startY: e.clientY, origX: pos.x, origY: pos.y }
     if (winRef.current) winRef.current.style.cursor = 'grabbing'
-  }, [pos, onFocus])
+  }, [pos, onFocus, mobileFullscreen])
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -239,12 +245,14 @@ export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpen
     )
   }
 
-  if (!pos) return null
+  if (!pos && !mobileFullscreen) return null
 
-  const W = Math.min(700, window.innerWidth - 24)
-  const H = minimized ? CMD.headerH : Math.min(520, window.innerHeight - 48)
-  const C = CMD.cornerCut   // 6
-  const I = Math.ceil(CMD.frameW / 2)  // stroke inset = 2 (half of 3px)
+  const W    = mobileFullscreen ? window.innerWidth  : maximized ? window.innerWidth  : Math.min(700, window.innerWidth - 24)
+  const H    = mobileFullscreen ? window.innerHeight : maximized ? window.innerHeight : minimized ? CMD.headerH : Math.min(520, window.innerHeight - 48)
+  const left = mobileFullscreen ? 0 : maximized ? 0 : pos!.x
+  const top  = mobileFullscreen ? 0 : maximized ? 0 : pos!.y
+  const C = CMD.cornerCut
+  const I = Math.ceil(CMD.frameW / 2)
 
   return (
     <div
@@ -252,9 +260,10 @@ export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpen
       onMouseDown={onFocus}
       className="pixel-terminal"
       style={{
-        position:  'fixed', left: pos.x, top: pos.y,
+        position:  'fixed', left, top,
         width: W, height: H,
         zIndex,
+        display: visible ? 'block' : 'none',
         filter:    `drop-shadow(${CMD.frameW}px ${CMD.frameW}px 0 rgba(0,0,0,0.90))`,
         animation: 'windowOpen 0.14s steps(3) both',
       }}
@@ -283,7 +292,7 @@ export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpen
             gap:          6,
             background:   CMD.headerBg,
             borderBottom: minimized ? 'none' : '1px solid rgba(80,80,160,0.55)',
-            cursor:       'grab',
+            cursor:       mobileFullscreen ? 'default' : 'grab',
             userSelect:   'none',
             flexShrink:   0,
           }}
@@ -292,10 +301,11 @@ export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpen
                          color: CMD.titleFg, letterSpacing: '0.07em',
                          whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
                          pointerEvents: 'none' }}>
-            TERMINAL://TOM
+            TERMINAL://HATEM
           </span>
 
-          {/* Control buttons — right side, 2px gaps */}
+          {/* Control buttons — hidden on mobile */}
+          {!mobileFullscreen && (
           <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
             {/* Theme toggle — matches button style */}
             <div
@@ -324,14 +334,15 @@ export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpen
 
             {/* Maximize */}
             <CmdBtn fill="#c8b0e8" outline="#7858b0"
-              onClick={() => {}} title="Maximize"
+              onClick={() => { setMaximized(m => !m); setMinimized(false) }} title="Maximize"
               icon={SquareIcon} />
 
             {/* Close */}
             <CmdBtn fill="#f0a8b0" outline="#b82850"
-              onClick={() => setMinimized(true)} title="Close"
+              onClick={onClose} title="Close"
               icon={CrossIcon} />
           </div>
+          )}
         </div>
 
         {/* ── Body ──────────────────────────────────────────────────── */}
@@ -355,7 +366,7 @@ export default function Terminal({ theme, onThemeChange, zIndex, onFocus, onOpen
                 {history.map((entry) => (
                   <div key={entry.id} className="animate-fadeIn">
                     <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 2 }}>
-                      <span style={{ color: accent, fontWeight: 600 }}>tom@system</span>
+                      <span style={{ color: accent, fontWeight: 600 }}>hatem@system</span>
                       <span style={{ color: dim }}>:~$</span>
                       <span style={{ color: text }}>{entry.command}</span>
                     </div>

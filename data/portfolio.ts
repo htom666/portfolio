@@ -90,6 +90,7 @@ export interface StackItem {
 export interface Project {
   id: number
   slug: string
+  comingSoon?: boolean
   title: string
   tagline: string
   category: string
@@ -130,9 +131,9 @@ export const PROJECTS: Project[] = [
     solution:
       'Progressive multi-step onboarding wizard , minimal fields per screen, clear progress indicators. Unique Odidact profile links embed directly in social bios, posts, and stories. Social integration UI designed to feel native alongside each platform. Three clear subscription tiers with distinct value propositions.',
     process:
-      'Joined as primary designer and front-end engineer, taking on back-end progressively. Full lifecycle: wireframes → design system → production implementation. Mobile-first from day one , social-first nature made mobile the primary surface. AI chatbot built to guide creators through content structure, tone, and audience targeting, with AI-generated images per post.',
+      'Joined as primary designer and front-end engineer, taking on back-end progressively. Full lifecycle: wireframes → design system → production implementation. Mobile-first from day one , social-first nature made mobile the primary surface. Built a chatbot to guide creators through content structure, tone, and audience targeting, with auto-generated images per post.',
     outcome:
-      '4× page load improvement via caching, code splitting, and asset optimisation. 75% reduction in page load times. Shipped AI chatbot for guided content creation. Platform live since Jan 2022 , 2+ years in production across France and Tunisia.',
+      '4× page load improvement via caching, code splitting, and asset optimisation. 75% reduction in page load times. Shipped chatbot for guided content creation. Platform live since Jan 2022 , 2+ years in production across France and Tunisia.',
     caseStudyUrl: 'https://odidact.com',
     images: [
       {
@@ -154,6 +155,16 @@ export const PROJECTS: Project[] = [
         filename: 'responsive_design.png',
         label: 'Platform overview , subscription tiers (Free · €20/mo · €120/yr), course marketplace & referral system',
         src: '/images/projects/odidact/responsive_design.png',
+      },
+      {
+        filename: 'Macbook_Air_Mockup_1.gif',
+        label: 'Odidact — live product demo',
+        src: '/projects/odidact/Macbook_Air_Mockup_1.gif',
+      },
+      {
+        filename: 'cap.png',
+        label: 'Screen views',
+        src: '/projects/odidact/cap.png',
       },
     ],
   },
@@ -228,18 +239,18 @@ export const PROJECTS: Project[] = [
       { name: 'GSAP ScrollTrigger', role: 'scroll-driven animations & kinetic typography' },
       { name: 'Vanilla HTML/CSS/JS', role: 'no framework , fully hand-crafted SPA' },
       { name: 'Blender',           role: '3D katana model , seven named mesh parts, exported as GLB' },
-      { name: 'GitHub Pages',      role: 'deployment , hhatem666.github.io/ryujin.github.io' },
+      { name: 'GitHub Pages',      role: 'deployment , hatem666.github.io/ryujin.github.io' },
     ],
     summary:
       'RYUJIN is a concept luxury katana brand built as a single-page application , treating the browser as a gallery, not a catalogue. Every section has a distinct purpose: seduce, educate, personalise, convert. Dark palette, serif typography, and red accents mirror the weight of the product , nothing decorative that isn\'t also functional.',
     problem:
       'High-end physical craftsmanship is difficult to convey through conventional e-commerce. Product cards and grids feel incompatible with an object that carries centuries of craft tradition. The challenge: make the digital experience feel as intentional and refined as the katana itself.',
     solution:
-      'Cinematic single-page experience built without a framework. Interactive 3D blade anahatemy viewer (Three.js) lets users hover to isolate and click to inspect each of seven named mesh parts , Ha, Tsuba, Tsuka, Kissaki, Saya, and more. Live configurator updates the 3D model in real time across five cushatemisation dimensions: Katana Series, Blade Finish, Handle Wrap, Saya Finish, and Engraving.',
+      'Cinematic single-page experience built without a framework. Interactive 3D blade anatomy viewer (Three.js) lets users hover to isolate and click to inspect each of seven named mesh parts , Ha, Tsuba, Tsuka, Kissaki, Saya, and more. Live configurator updates the 3D model in real time across five customisation dimensions: Katana Series, Blade Finish, Handle Wrap, Saya Finish, and Engraving.',
     process:
       'Philosophy section , Japanese craft pillars (Steel, Form, Spirit, Edge) paired with kanji. Collection page presents three limited series (Kage No.01 · $4,800, Ryujin Eclipse · $6,200, Obsidian Edge · $7,500) as editorial entries with specs and reservation flow. Craft section: 8-stage interactive forging grid from Tamahagane smelting to final inspection. Legacy section: pure GSAP ScrollTrigger kinetic typography , no UI chrome, pure atmosphere. Collector Notes framed as archived documents, not reviews.',
     outcome:
-      'Fully deployed on GitHub Pages. Four blade finishes (Mirror, Brushed, Satin, Kurouchi), four handle wrap options, five Saya finishes including Carbon Pattern, cushatem calligraphy engraving. Closing section uses scarcity messaging , limited series, edition count surfaced as brand signal.',
+      'Fully deployed on GitHub Pages. Four blade finishes (Mirror, Brushed, Satin, Kurouchi), four handle wrap options, five Saya finishes including Carbon Pattern, custom calligraphy engraving. Closing section uses scarcity messaging , limited series, edition count surfaced as brand signal.',
     caseStudyUrl: 'https://hhatem666.github.io/ryujin.github.io',
     images: [
       {
@@ -253,9 +264,9 @@ export const PROJECTS: Project[] = [
         src: '/images/projects/ryujin/philosophy.png',
       },
       {
-        filename: 'anahatemy.png',
-        label: 'Anahatemy of the Blade , Three.js interactive viewer, hover to isolate · click to inspect',
-        src: '/images/projects/ryujin/anahatemy.png',
+        filename: 'anatomy.png',
+        label: 'Anatomy of the Blade , Three.js interactive viewer, hover to isolate · click to inspect',
+        src: '/images/projects/ryujin/anatomy.png',
       },
       {
         filename: 'collection.png',
@@ -296,7 +307,93 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 4,
+    slug: 'pas-a-pas',
+    title: 'Pas à Pas',
+    tagline: 'Parenting magazine & baby tracker — brand, web & mobile design',
+    category: 'UI/UX Design · Brand Design',
+    role: 'UI/UX Designer · Brand Designer',
+    year: '2024',
+    tech: ['Figma', 'Adobe Photoshop'],
+    stack: [
+      { name: 'Figma',           role: 'all screens, components, design system & prototyping' },
+      { name: 'Adobe Photoshop', role: 'image treatment & mockup composition' },
+      { name: 'Scope',           role: 'design concept only · web + iOS + Android · not developed' },
+    ],
+    summary:
+      'Pas à Pas (Step by Step) is a Tunisian parenting platform for parents of children aged 0 to 6. It combines two products: a web magazine offering expert-backed child development content, and a companion mobile app for tracking daily routines — sleep, feeding, diaper changes, baths, and health data.',
+    problem:
+      'New parents under stress need a product that feels warm and approachable, while still being clear and structured enough to make daily tracking effortless. Standard parenting apps feel clinical; generic content platforms feel impersonal.',
+    solution:
+      'A full brand system built around a pink spectrum palette with a deep navy anchor — joyful yet trustworthy. Illustration-led design throughout reduces language barriers. Age-filtered content (0–1, 1–3, 3–6 years) solves the core UX problem: parents only want relevant info.',
+    process:
+      'Web magazine homepage pairs editorial headlines with warm family illustrations. Cloud-shaped testimonial cards in the Blogs section create a playful, brand-consistent UI pattern. Mobile app prioritises speed of input — new parents are exhausted, every tap counts. Single-screen tracking design keeps all key data visible without scrolling. Both light and dark mode designed for overnight tracking use.',
+    outcome:
+      'Full brand identity delivered: colour palette, typography (Roboto Bold), logo, and illustration style. Web magazine across 5 sections + iOS/Android mobile app with 10+ screens including sleep tracker, feeding tracker, health screen, statistics dashboard, and content feed.',
+    images: [
+      { filename: 'Group 2291.png', label: 'Product overview — web magazine and mobile baby tracker',            src: '/projects/pas-a-pas/Group 2291.png' },
+      { filename: 'Group 2296.png', label: 'Brand system — pink spectrum palette, Roboto Bold typography',      src: '/projects/pas-a-pas/Group 2296.png' },
+      { filename: 'Group 2297.png', label: 'Web homepage — hero section with family illustration',              src: '/projects/pas-a-pas/Group 2297.png' },
+      { filename: 'Group 2298.png', label: 'À propos — On Découvre, On Partage, On Prend le Temps',            src: '/projects/pas-a-pas/Group 2298.png' },
+      { filename: 'Group 2299.png', label: 'Blogs & Idées — cloud-shaped testimonials, age-filtered content',  src: '/projects/pas-a-pas/Group 2299.png' },
+      { filename: 'Group 2300.png', label: 'Mobile app overview — health tracking, statistics & sleep logging', src: '/projects/pas-a-pas/Group 2300.png' },
+      { filename: 'Group 2301.png', label: 'Sleep tracker — light mode with full tracking detail',              src: '/projects/pas-a-pas/Group 2301.png' },
+      { filename: 'Group 2302.png', label: 'Mobile app — onboarding flow with illustrated steps',               src: '/projects/pas-a-pas/Group 2302.png' },
+      { filename: 'Group 2303.png', label: 'Mobile app CTA — App Store & Google Play',                         src: '/projects/pas-a-pas/Group 2303.png' },
+      { filename: 'Group 2304.png', label: 'Screen detail',                                                     src: '/projects/pas-a-pas/Group 2304.png' },
+      { filename: 'Group 2305.png', label: 'Screen detail',                                                     src: '/projects/pas-a-pas/Group 2305.png' },
+      { filename: 'Group 2306.png', label: 'Screen detail',                                                     src: '/projects/pas-a-pas/Group 2306.png' },
+      { filename: 'Group 2307.png',  label: 'Screen detail',          src: '/projects/pas-a-pas/Group 2307.png' },
+      { filename: 'baby-v-2.gif',    label: 'App animation',          src: '/projects/pas-a-pas/baby-v-2.gif' },
+      { filename: 'Hnet-image.gif',  label: 'Motion design',          src: '/projects/pas-a-pas/Hnet-image.gif' },
+      { filename: 'ezgif.com-gif-maker (10).gif', label: 'UI animation', src: '/projects/pas-a-pas/ezgif.com-gif-maker (10).gif' },
+    ],
+  },
+  {
+    id: 5,
+    slug: 'fitness',
+    title: 'FITNESS',
+    tagline: 'Fitness & nutrition tracker — mobile application UI/UX',
+    category: 'UI/UX Design · UX Research',
+    role: 'UI/UX Designer · UX Researcher',
+    year: '2024',
+    tech: ['Figma', 'Adobe Illustrator'],
+    stack: [
+      { name: 'Figma',            role: 'design system, wireframes, hi-fi screens & prototyping' },
+      { name: 'Adobe Illustrator', role: 'custom isometric illustration set — 7 fitness & nutrition icons' },
+      { name: 'Scope',            role: 'design concept only · iOS · not developed' },
+    ],
+    summary:
+      'FITNESS is a concept mobile application that makes health tracking intuitive and personal — combining calorie tracking, weight monitoring, hydration logging, activity tracking, and a dish scanner into one clean, accessible product. Survey data showed 78% of people feel they don\'t lead a balanced lifestyle, yet 46% have never used a tracking app.',
+    problem:
+      'Existing fitness apps are too complex, too clinical, or require expensive subscriptions. The gap isn\'t motivation — it\'s access and usability. Research was conducted via 9 face-to-face user interviews and a 56-person online survey to validate pain points and identify the most common frustrations.',
+    solution:
+      'A full User-Centered Design (UCD) process: Research → Personas → User Flow → Wireframes → Visual Design. Health Score on the home screen gives immediate non-intimidating feedback. Four metric cards (Calories, Weight, Water, Steps) surface the most-used data without scrolling. Dish scanner removes the biggest friction in food logging — manual entry.',
+    process:
+      'Two personas emerged: Fahd (25, student, limited budget, fast food reliance) and Ahmed (45, office worker, sedentary, forgets to drink water). User flow maps every path from splash screen through 5 main sections: Home, Calendar, Dish Scanner, Get in Touch, Account — core actions reachable within two taps. Low-fi wireframes validated structure before visual design. Custom isometric illustrations (dumbbells, scales, yoga mat, dish scanner, treadmill) chosen over photography for cultural neutrality.',
+    outcome:
+      '20+ screens delivered: onboarding, auth, dashboard, calorie tracking, hydration, weight tracker, activity, dish scanner, calendar, settings. Teal/navy palette signals health and trust. Dark mode designed alongside light mode. Tab-based time filtering (Day/Week/Month) on every chart.',
+    images: [
+      { filename: 'Group 113.png', label: 'App overview — fitness and nutrition tracker',          src: '/projects/fitness/Group 113.png' },
+      { filename: 'Group 116.png', label: 'Design process — UCD: Empathize → Define → Ideate → Design → Test', src: '/projects/fitness/Group 116.png' },
+      { filename: 'Group 117.png', label: 'User research — qualitative interviews & survey findings', src: '/projects/fitness/Group 117.png' },
+      { filename: 'Group 118.png', label: 'User personas — Fahd (25, student) & Ahmed (45, employee)', src: '/projects/fitness/Group 118.png' },
+      { filename: 'Group 119.png', label: 'User flow — complete navigation architecture',           src: '/projects/fitness/Group 119.png' },
+      { filename: 'Group 120.png', label: 'Low-fidelity wireframes — key screens',                 src: '/projects/fitness/Group 120.png' },
+      { filename: 'Group 122.png', label: 'Design system — icons, components, buttons, navigation', src: '/projects/fitness/Group 122.png' },
+      { filename: 'Group 124.png', label: 'Metrics system — sliders, charts, ring charts, calendar strip', src: '/projects/fitness/Group 124.png' },
+      { filename: 'Group 125.png', label: 'Onboarding — illustrated feature introduction screens', src: '/projects/fitness/Group 125.png' },
+      { filename: 'Group 126.png', label: 'Sign in & registration — social login and email/password forms', src: '/projects/fitness/Group 126.png' },
+      { filename: 'Group 127.png', label: 'Home screen — Health Score, metrics dashboard, weight tracker', src: '/projects/fitness/Group 127.png' },
+      { filename: 'Group 128.png', label: 'Tracking screens — calories, hydration, activity',     src: '/projects/fitness/Group 128.png' },
+      { filename: 'Group 129.png', label: 'Calendar & dish scanner screens',                       src: '/projects/fitness/Group 129.png' },
+      { filename: 'Group 132.png', label: 'Complete screen overview — all 20+ screens',            src: '/projects/fitness/Group 132.png' },
+    ],
+  },
+  {
+    id: 6,
     slug: 'spatial-audio-visualizer',
+    comingSoon: true,
+
     title: 'Spatial Audio Visualizer',
     tagline: 'Real-time 3D audio visualization for spatial mixing',
     category: 'Creative Technology',
@@ -317,18 +414,7 @@ export const PROJECTS: Project[] = [
     outcome:
       '200+ GitHub stars. Actively used by independent producers as a mixing reference tool.',
     caseStudyUrl: 'https://github.com/hatem/spatial-audio-viz',
-    images: [
-      {
-        filename: 'preview_01.png',
-        label: 'spatial visualizer',
-        src: '/images/projects/spatial-audio/preview_01.png',
-      },
-      {
-        filename: 'preview_02.png',
-        label: 'frequency analysis view',
-        src: '/images/projects/spatial-audio/preview_02.png',
-      },
-    ],
+    images: [],
   },
 ]
 
@@ -346,7 +432,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: '2023 , Present',
     lines: [
       'Designing and running VR experiments on facial recognition and social presence.',
-      'Developing cushatem data collection pipelines in Python.',
+      'Developing custom data collection pipelines in Python.',
       'Co-authoring two in-progress papers on avatar fidelity and embodiment.',
     ],
   },
@@ -372,8 +458,7 @@ export const EXPERIENCE: ExperienceItem[] = [
 ]
 
 export const CONTACT = {
-  email: 'hatem@example.com',
-  github: 'github.com/hatem',
-  linkedin: 'linkedin.com/in/hatem',
-  twitter: '@hatemdesigns',
+  email: 'hatemdahech1@gmail.com',
+  github: 'github.com/htom666',
+  linkedin: 'linkedin.com/in/hatemdahech',
 }

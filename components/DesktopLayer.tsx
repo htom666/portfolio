@@ -83,6 +83,18 @@ function MusicIcon() {
   )
 }
 
+function CmdIcon() {
+  return (
+    <img
+      src={ap('/icons/cmd1.png')}
+      width={SZ}
+      height={SZ}
+      alt="terminal"
+      style={{ ...PX, width: SZ, height: SZ }}
+    />
+  )
+}
+
 // ─── Desktop item ─────────────────────────────────────────────────────────────
 
 interface ItemProps {
@@ -105,6 +117,7 @@ function DesktopItem({ Icon, label, onClick }: ItemProps) {
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false) }}
@@ -167,17 +180,19 @@ function DesktopItem({ Icon, label, onClick }: ItemProps) {
 interface Props {
   onOpenFolder:      (folderId: string) => void
   onOpenMusicPlayer: () => void
+  onOpenTerminal:    () => void
   openFolderIds:     string[]
 }
 
-export default memo(function DesktopLayer({ onOpenFolder, onOpenMusicPlayer, openFolderIds }: Props) {
+export default memo(function DesktopLayer({ onOpenFolder, onOpenMusicPlayer, onOpenTerminal, openFolderIds }: Props) {
   const skillsOpen = openFolderIds.includes('skills')
   const items: ItemProps[] = [
-    { Icon: FolderIcon,                              label: 'projects/',   onClick: () => onOpenFolder('projects') },
-    { Icon: TextIcon,                                label: 'about.txt',   onClick: () => onOpenFolder('about')    },
+    { Icon: FolderIcon,                                 label: 'projects/',   onClick: () => onOpenFolder('projects') },
+    { Icon: TextIcon,                                   label: 'about.txt',   onClick: () => onOpenFolder('about')    },
     { Icon: () => <TerminalIcon isOpen={skillsOpen} />, label: 'skills.sh',   onClick: () => onOpenFolder('skills')   },
-    { Icon: MailIcon,                                label: 'contact.lnk', onClick: () => onOpenFolder('contact')  },
-    { Icon: MusicIcon,                               label: 'music.sys',   onClick: onOpenMusicPlayer              },
+    { Icon: MailIcon,                                   label: 'contact.lnk', onClick: () => onOpenFolder('contact')  },
+    { Icon: MusicIcon,                                  label: 'music.sys',   onClick: onOpenMusicPlayer              },
+    { Icon: CmdIcon,                                    label: 'terminal',    onClick: onOpenTerminal                 },
   ]
 
   return (

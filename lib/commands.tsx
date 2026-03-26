@@ -85,7 +85,7 @@ function renderHelp() {
   return (
     <div className="space-y-1">
       <p className="opacity-40 text-xs mb-3 uppercase tracking-widest">
-        tom@portfolio — terminal portfolio v1.0
+        hatem@portfolio — terminal portfolio v1.0
       </p>
       {Object.entries(COMMAND_DESCRIPTIONS).map(([cmd, desc]) => (
         <div key={cmd} className="flex gap-4 text-sm">

@@ -87,7 +87,7 @@ export default function TerminalInput({ onSubmit, inputHistory, theme }: Props) 
         onClick={() => inputRef.current?.focus()}
       >
         <span style={{ color: accent, fontWeight: 700, flexShrink: 0, cursor: 'text' }}>
-          tom@system
+          hatem@system
         </span>
         <span style={{ color: dimColor, flexShrink: 0, cursor: 'text', userSelect: 'none' }}>
           :~$

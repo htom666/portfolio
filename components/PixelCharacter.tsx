@@ -5,7 +5,7 @@ import { ap } from '@/lib/assetPath'
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const CHAR_SIZE     = 148
+const CHAR_SIZE     = 180
 const BUBBLE_W      = 152
 const BUBBLE_H      = Math.round(152 * 325 / 403)
 const TALK_DURATION = 8000
@@ -142,7 +142,7 @@ export default memo(function PixelCharacter() {
         <div style={{
           position:      'absolute',
           bottom:        Math.round(CHAR_SIZE * 0.72),
-          left:          CHAR_SIZE - 22,
+          left:          CHAR_SIZE - 32,
           width:         BUBBLE_W,
           height:        BUBBLE_H,
           pointerEvents: 'none',

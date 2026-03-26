@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Custom scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 112, 190, 0.22);
+  border-radius: 0;  /* square — pixel aligned */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 112, 190, 0.40);
+}
+
+/* ── Selection ──────────────────────────────────────────────────── */
+::selection {
+  background: rgba(80, 250, 123, 0.25);
+}
+
+/* ── Window open animation ───────────────────────────────────────── */
+@keyframes windowOpen {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ── Base ────────────────────────────────────────────────────────── */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #0d0b1e;
+  overflow: hidden; /* prevent double scroll on the page */
+}
+
+/* Allow the body to scroll on mobile if needed */
+@media (max-width: 640px) {
+  html,
+  body {
+    overflow: auto;
+  }
+}
+
+/* ── Font smoothing ──────────────────────────────────────────────── */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+/* ── Pixel terminal / widget — disable subpixel AA for crisp glyphs */
+.pixel-terminal,
+.pixel-terminal *,
+.pixel-widget,
+.pixel-widget * {
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+  image-rendering: pixelated;
+  text-rendering: optimizeSpeed;
+}
+
+/* ── Pixel OS global rules ──────────────────────────────────────── */
+svg {
+  image-rendering: pixelated;
+}
+
+input, button {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+}
+
+/* ── Noise texture overlay (subtle) ─────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 2; /* above bg (0) and overlay (1), below all UI (3+) */
+  opacity: 0.5;
+}

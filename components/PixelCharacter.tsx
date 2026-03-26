@@ -142,7 +142,7 @@ export default memo(function PixelCharacter() {
         <div style={{
           position:      'absolute',
           bottom:        Math.round(CHAR_SIZE * 0.72),
-          left:          CHAR_SIZE - 32,
+          left:          CHAR_SIZE - 44,
           width:         BUBBLE_W,
           height:        BUBBLE_H,
           pointerEvents: 'none',

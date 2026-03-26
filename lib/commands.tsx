@@ -235,7 +235,6 @@ function renderContact() {
     { label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
     { label: 'GitHub', value: CONTACT.github, href: `https://${CONTACT.github}` },
     { label: 'LinkedIn', value: CONTACT.linkedin, href: `https://${CONTACT.linkedin}` },
-    { label: 'Twitter', value: CONTACT.twitter, href: undefined },
   ]
   return (
     <div className="text-sm space-y-2">

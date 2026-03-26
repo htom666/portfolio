@@ -1,12 +1,14 @@
 'use client'
 
+import { ap } from '@/lib/assetPath'
+
 export default function Background() {
   return (
     <>
       {/* ── Wallpaper ── */}
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
         <video
-          src="/background.mp4"
+          src={ap('/background.mp4')}
           autoPlay loop muted playsInline preload="auto"
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         />

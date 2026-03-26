@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback, memo } from 'react'
+import { ap } from '@/lib/assetPath'
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
@@ -18,7 +19,7 @@ type Phase = 'talking' | 'idle' | 'idle2' | 'grab'
 // ─── Preload all GIFs ─────────────────────────────────────────────────────────
 
 if (typeof window !== 'undefined') {
-  ;['/character/talking.gif', '/character/idle.gif', '/character/idle2.gif', '/character/grab.gif'].forEach((src) => {
+  ;[ap('/character/talking.gif'), ap('/character/idle.gif'), ap('/character/idle2.gif'), ap('/character/grab.gif')].forEach((src) => {
     const img = new Image(); img.src = src
   })
 }
@@ -111,10 +112,10 @@ export default memo(function PixelCharacter() {
 
   // ── Resolve gif src ───────────────────────────────────────────────────────
   const src =
-    phase === 'talking' ? '/character/talking.gif' :
-    phase === 'grab'    ? '/character/grab.gif'    :
-    phase === 'idle2'   ? '/character/idle2.gif'   :
-                          '/character/idle.gif'
+    phase === 'talking' ? ap('/character/talking.gif') :
+    phase === 'grab'    ? ap('/character/grab.gif')    :
+    phase === 'idle2'   ? ap('/character/idle2.gif')   :
+                          ap('/character/idle.gif')
 
   if (!pos) return null
 
@@ -147,7 +148,7 @@ export default memo(function PixelCharacter() {
           pointerEvents: 'none',
         }}>
           <img
-            src="/character/bubble.png"
+            src={ap('/character/bubble.png')}
             width={BUBBLE_W}
             height={BUBBLE_H}
             alt=""

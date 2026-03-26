@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import ImageLightbox from './ImageLightbox'
 import type { Project, ProjectImage } from '@/data/portfolio'
+import { ap } from '@/lib/assetPath'
 // ─── Constants — matches Terminal style ──────────────────────────────────────
 
 const FONT       = "'JetBrains Mono','Fira Code','Cascadia Code',ui-monospace,monospace"
@@ -90,7 +91,7 @@ function WinImage({
           cursor: status === 'loaded' ? 'zoom-in' : 'default',
           flex: 1,
         }}
-        onClick={() => status === 'loaded' && onExpand(image.src, image.filename)}
+        onClick={() => status === 'loaded' && onExpand(ap(image.src), image.filename)}
       >
         {status === 'loading' && (
           <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -123,7 +124,7 @@ function WinImage({
         )}
 
         <img
-          src={image.src}
+          src={ap(image.src)}
           alt={image.label}
           onLoad={() => setStatus('loaded')}
           onError={() => setStatus('error')}

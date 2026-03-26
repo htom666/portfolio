@@ -1,12 +1,13 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback, memo } from 'react'
+import { ap } from '@/lib/assetPath'
 
 // ─── Playlist ─────────────────────────────────────────────────────────────────
 
 const PLAYLIST = [
-  { name: 'Soft Coral Screensaver',    src: '/music/track_01.mp3', thumb: '/music/m1.webp' },
-  { name: 'Soft Coral Screensaver II', src: '/music/track_02.mp3', thumb: '/music/m2.gif'  },
+  { name: 'Soft Coral Screensaver',    src: ap('/music/track_01.mp3'), thumb: ap('/music/m1.webp') },
+  { name: 'Soft Coral Screensaver II', src: ap('/music/track_02.mp3'), thumb: ap('/music/m2.gif')  },
 ]
 
 // ─── Constants ────────────────────────────────────────────────────────────────

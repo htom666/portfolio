@@ -2,6 +2,7 @@
 
 import { memo } from 'react'
 import type { OsFolder, OsFile } from '@/lib/osData'
+import { ap } from '@/lib/assetPath'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -12,7 +13,7 @@ const FONT = "'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, mono
 function FileIcon() {
   return (
     <img
-      src="/icons/project.png"
+      src={ap('/icons/project.png')}
       width={28}
       height={28}
       alt="file"

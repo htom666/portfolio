@@ -2,6 +2,7 @@
 
 import { useState, memo } from 'react'
 import PixelCharacter from './PixelCharacter'
+import { ap } from '@/lib/assetPath'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -25,7 +26,7 @@ const PX = { imageRendering: 'pixelated' as const, display: 'block' as const }
 function FolderIcon() {
   return (
     <img
-      src="/icons/desk.png"
+      src={ap('/icons/desk.png')}
       width={SZ}
       height={SZ}
       alt="projects"
@@ -37,7 +38,7 @@ function FolderIcon() {
 function TextIcon() {
   return (
     <img
-      src="/icons/about.png"
+      src={ap('/icons/about.png')}
       width={43}
       height={43}
       alt="about"
@@ -49,7 +50,7 @@ function TextIcon() {
 function TerminalIcon({ isOpen }: { isOpen: boolean }) {
   return (
     <img
-      src={isOpen ? '/icons/folderopen.png' : '/icons/folderclosed.png'}
+      src={isOpen ? ap('/icons/folderopen.png') : ap('/icons/folderclosed.png')}
       width={SZ}
       height={38}
       alt="skills"
@@ -61,7 +62,7 @@ function TerminalIcon({ isOpen }: { isOpen: boolean }) {
 function MailIcon() {
   return (
     <img
-      src="/icons/contact.png"
+      src={ap('/icons/contact.png')}
       width={SZ}
       height={SZ}
       alt="contact"
@@ -73,7 +74,7 @@ function MailIcon() {
 function MusicIcon() {
   return (
     <img
-      src="/icons/play.png"
+      src={ap('/icons/play.png')}
       width={SZ}
       height={SZ}
       alt="music"

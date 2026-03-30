@@ -109,6 +109,24 @@ GCER · Sousse, Tunisia · Jul – Dec 2020
     responsive and cross-browser.
 `
 
+const RESEARCH_TXT = `research.txt
+─────────────────────────────────────────────
+
+MSc Researcher — VR & Experimental Psychology
+VPAC Lab · Toyohashi University of Technology
+2023 – Present
+
+  · Investigating how avatar design and virtual
+    space influence social perception and human
+    behaviour.
+  · Designing and running controlled VR
+    experiments with human participants.
+  · Exploring embodiment, social presence, and
+    non-verbal cues in virtual environments.
+
+─────────────────────────────────────────────
+`
+
 const CONTACT_TXT = `contact.txt
 ─────────────────────────────────────────────
 
@@ -162,6 +180,7 @@ export const OS_FOLDERS: OsFolder[] = [
     files: [
       { id: 'skills_txt',     name: 'skills.txt',     kind: 'sh',  content: SKILLS_TXT     },
       { id: 'experience_txt', name: 'experience.txt', kind: 'txt', content: EXPERIENCE_TXT },
+      { id: 'research_txt',   name: 'research.txt',   kind: 'txt', content: RESEARCH_TXT   },
     ],
   },
   {

@@ -427,32 +427,40 @@ export interface ExperienceItem {
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
-    role: 'Graduate Research Assistant',
-    org: 'XR Perception Lab',
-    period: '2023 , Present',
+    role: 'Software Engineer (Full-Stack)',
+    org: 'Odidact · France & Tunisia',
+    period: 'Jan 2022 – Apr 2024',
     lines: [
-      'Designing and running VR experiments on facial recognition and social presence.',
-      'Developing custom data collection pipelines in Python.',
-      'Co-authoring two in-progress papers on avatar fidelity and embodiment.',
+      'Led end-to-end UI/UX design and front-end development, delivering a cohesive and responsive user experience.',
+      'Contributed to back-end development, building and maintaining features for an international user base.',
+      'Achieved a 4x improvement in page load speed through targeted performance optimisation.',
+      'Built and integrated an AI chatbot guiding users through writing and publishing posts.',
     ],
   },
   {
-    role: 'UI/UX Design Intern',
-    org: 'Meridian Studio',
-    period: 'Summer 2022',
+    role: 'Software Engineer & Digital Consultant (Freelance)',
+    org: 'Independent · Worldwide',
+    period: 'Sep 2021 – Present',
     lines: [
-      'Designed mobile app interfaces across iOS and Android.',
-      'Conducted user interviews and synthesized findings into design decisions.',
-      'Delivered high-fidelity prototypes for two client projects.',
+      'Design UI/UX for local companies in Tunisia, from wireframes to high-fidelity prototypes in Figma.',
+      'Develop and deliver front-end implementations based on own designs, ensuring pixel-perfect results.',
+      'Lead client discovery sessions to translate requirements into clear design and technical briefs.',
     ],
   },
   {
-    role: 'Teaching Assistant , Interaction Design',
-    org: 'University of Design',
-    period: '2022 , 2023',
+    role: 'Full Stack Web Developer',
+    org: 'SLOTH-LAB · Sousse, Tunisia',
+    period: 'Mar 2021 – Sep 2021',
     lines: [
-      'Led weekly lab sessions for 30 undergraduate students.',
-      'Provided critique and mentorship on design process and presentation.',
+      'Developed a production ERP system, handling front-end, back-end, deployment, and maintenance.',
+    ],
+  },
+  {
+    role: 'Web Developer',
+    org: 'GCER · Sousse, Tunisia',
+    period: 'Jul 2020 – Dec 2020',
+    lines: [
+      'Rebuilt the company website using WordPress, ensuring cross-browser compatibility and responsive design.',
     ],
   },
 ]

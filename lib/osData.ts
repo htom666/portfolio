@@ -81,30 +81,32 @@ const SKILLS_TXT = `skills.txt
 const EXPERIENCE_TXT = `experience.txt
 ─────────────────────────────────────────────
 
-Graduate Research Assistant
-XR Perception Lab · 2023 , Present
-  · Designing and running VR experiments on
-    facial recognition and social presence.
-  · Developing custom data collection
-    pipelines in Python.
-  · Co-authoring two in-progress papers on
-    avatar fidelity and embodiment.
+Software Engineer (Full-Stack)
+Odidact · France & Tunisia · Jan 2022 – Apr 2024
+  · Led end-to-end UI/UX design and front-end
+    development of the platform.
+  · Contributed to back-end, supporting an
+    international user base.
+  · Achieved 4x page load speed improvement.
+  · Built an AI chatbot for content creation.
 
-UI/UX Design Intern
-Meridian Studio · Summer 2022
-  · Designed mobile app interfaces across
-    iOS and Android.
-  · Conducted user interviews and synthesized
-    findings into design decisions.
-  · Delivered high-fidelity prototypes for
-    two client projects.
+Software Engineer & Consultant (Freelance)
+Independent · Worldwide · Sep 2021 – Present
+  · Design UI/UX from wireframes to
+    high-fidelity prototypes in Figma.
+  · Deliver pixel-perfect front-end
+    implementations.
+  · Lead client discovery and briefs.
 
-Teaching Assistant , Interaction Design
-University of Design · 2022 , 2023
-  · Led weekly lab sessions for 30
-    undergraduate students.
-  · Provided critique and mentorship on
-    design process and presentation.
+Full Stack Web Developer
+SLOTH-LAB · Sousse, Tunisia · Mar – Sep 2021
+  · Developed a production ERP system,
+    front-end to back-end and deployment.
+
+Web Developer
+GCER · Sousse, Tunisia · Jul – Dec 2020
+  · Rebuilt company website with WordPress,
+    responsive and cross-browser.
 `
 
 const CONTACT_TXT = `contact.txt

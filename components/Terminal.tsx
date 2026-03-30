@@ -131,7 +131,7 @@ function CmdBtn({ fill, outline, onClick, title, icon }: CmdBtnProps) {
 
 interface HistoryEntry { id: string; command: string; output: React.ReactNode }
 type Phase = 'boot' | 'ready'
-const QUICK_COMMANDS = ['help', 'about', 'projects', 'skills', 'experience', 'contact']
+const QUICK_COMMANDS = ['help', 'about', 'projects', 'skills', 'experience', 'research', 'contact']
 
 interface Props {
   theme: 'green' | 'white'

@@ -7,6 +7,7 @@ import {
   SKILLS,
   PROJECTS,
   EXPERIENCE,
+  RESEARCH,
   CONTACT,
 } from '@/data/portfolio'
 
@@ -22,6 +23,7 @@ export const COMMAND_LIST = [
   'projects',
   'open',
   'experience',
+  'research',
   'contact',
   'resume',
   'theme',
@@ -35,7 +37,8 @@ export const COMMAND_DESCRIPTIONS: Record<string, string> = {
   skills:      'technical and design skills',
   projects:    'list all projects',
   'open [n]':  'open project page',
-  experience:  'work and academic history',
+  experience:  'work history',
+  research:    'academic research at VPAC Lab',
   contact:     'contact information',
   resume:      'open resume (PDF)',
   theme:       'toggle color theme',
@@ -230,6 +233,34 @@ function renderExperience() {
   )
 }
 
+function renderResearch() {
+  return (
+    <div className="text-sm space-y-0">
+      {RESEARCH.map((item, i) => (
+        <React.Fragment key={i}>
+          <div className="py-2">
+            <div className="flex justify-between items-start gap-4">
+              <div>
+                <p className="font-semibold">{item.title}</p>
+                <p className="opacity-50 text-xs mt-0.5">{item.org}</p>
+              </div>
+              <p className="opacity-35 text-xs shrink-0">{item.period}</p>
+            </div>
+            <ul className="mt-2.5 space-y-1">
+              {item.lines.map((line, j) => (
+                <li key={j} className="flex gap-2 opacity-65">
+                  <span className="shrink-0 opacity-50">·</span>
+                  <span className="leading-relaxed">{line}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </React.Fragment>
+      ))}
+    </div>
+  )
+}
+
 function renderContact() {
   const items = [
     { label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
@@ -286,6 +317,8 @@ export function processCommand(
       return renderProjects(run)
     case 'experience':
       return renderExperience()
+    case 'research':
+      return renderResearch()
     case 'contact':
       return renderContact()
     case 'resume':

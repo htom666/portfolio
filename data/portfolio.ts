@@ -465,6 +465,26 @@ export const EXPERIENCE: ExperienceItem[] = [
   },
 ]
 
+export interface ResearchItem {
+  title: string
+  org: string
+  period: string
+  lines: string[]
+}
+
+export const RESEARCH: ResearchItem[] = [
+  {
+    title: 'MSc Researcher — VR & Experimental Psychology',
+    org: 'VPAC Lab · Toyohashi University of Technology, Japan',
+    period: '2023 – Present',
+    lines: [
+      'Investigating how avatar design and virtual space influence social perception and human behaviour.',
+      'Designing and running controlled VR experiments with human participants.',
+      'Exploring embodiment, social presence, and non-verbal cues in virtual environments.',
+    ],
+  },
+]
+
 export const CONTACT = {
   email: 'hatemdahech1@gmail.com',
   github: 'github.com/htom666',
